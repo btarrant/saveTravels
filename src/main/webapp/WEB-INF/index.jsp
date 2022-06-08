@@ -30,6 +30,10 @@ crossorigin="anonymous">
     		<tbody>
 				<c:forEach var="expense" items="${expenses}">
 					<tr>
+					<form action="/expenses/${expense.id}" method="post">
+    			<input type="hidden" name="_method" value="delete">
+    			<input type="submit" value="Delete">
+				</form>
 						<td class="text-center"><c:out value="${expense.name}"></c:out></td>
 						<td class="text-center"><c:out value="${expense.vendor}"></c:out></td>
 						<td class="text-center">$<c:out value="${expense.amount}"></c:out></td>
@@ -45,7 +49,8 @@ crossorigin="anonymous">
 	<h1>Add an expense:</h1>
 	
 		<form:form action="/expenses" method="post" modelAttribute="expense">
-
+		
+			
 			<div>
 				<form:label path="name">Expense Name: </form:label><br />
 				<form:errors path="name" class="text-danger"/>

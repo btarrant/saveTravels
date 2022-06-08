@@ -10,39 +10,36 @@ import com.brandontarrant.saveTravels.repositories.ExpenseRepository;
 
 @Service
 public class ExpenseService {
-	private final ExpenseRepository expenseRepository;
 	
-	public ExpenseService(ExpenseRepository expenseRepository) {
-		this.expenseRepository = expenseRepository;
-	}
-	
-	public List<Expense> allExpenses(){
-		return expenseRepository.findAll();
-	}
-	
-	public Expense createExpense(Expense expense) {
-		return expenseRepository.save(expense);
-	}
-	
-	public Expense findExpense(Long id) {
-		// Optional means the object can exist or not
-		Optional<Expense> optionalExpense = expenseRepository.findById(id);
-		if(optionalExpense.isPresent()) {
-			return optionalExpense.get();
-		}else {
-			return null;
-		}
-	}
-	
-	public Expense updateExpense(Expense expense) {
-		return expenseRepository.save(expense);
-	}
-	
-	public void deleteExpense(Long id) {
-		Optional<Expense> optionalExpense = expenseRepository.findById(id);
-		if(optionalExpense.isPresent()) {
-			expenseRepository.deleteById(id);
-		}
-	}
+	// adding the expense repository as a dependency
+    private final ExpenseRepository repo;
+    
+    public ExpenseService(ExpenseRepository repo) {
+        this.repo = repo;
+    }
+    // returns all the expenses
+    public List<Expense> all() {
+        return repo.findAll();
+    }
+    // creates an expense
+    public Expense create(Expense b) {
+        return repo.save(b);
+    }
+    // updates an expense
+    public Expense update(Expense b) {
+        return repo.save(b);
+    }
+    // retrieves an expense
+    public Expense find(Long id) {
+        Optional<Expense> optional = repo.findById(id);
+        if(optional.isPresent()) {
+            return optional.get();
+        } else {
+            return null;
+        }
+    }
+    public void delete(Long id) {
+    	repo.deleteById(id);
+    }
 
 }
